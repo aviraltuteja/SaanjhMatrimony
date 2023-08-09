@@ -1,0 +1,17 @@
+.adminBody > * {
+  max-width: 1000px;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+section.newProfileSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
