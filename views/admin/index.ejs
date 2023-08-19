@@ -1,1 +1,19 @@
-This is the main body of a partial view
+<section>
+  <h3>Available Profiles</h3>
+  <ul>
+    <% for (const entry of profiles) { %> <% if(entry.fullname) { %>
+
+    <li>
+      <div class="table-entry">
+        <h5>Name : <%= entry.fullname %></h5>
+        <h5>Age : <%= entry.age %></h5>
+        <h5>Phone Number : <%= entry.phoneNumber %></h5>
+        <a href="/admin/<%= entry.uuid %>">
+          <h5 class="link" ">Visit Profile</h5></a
+        >
+      </div>
+    </li>
+    <% } %> <% } %>
+  </ul>
+</section>
+<link rel="stylesheet" href="/stylesheets/style.css" />

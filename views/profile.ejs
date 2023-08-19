@@ -1,6 +1,93 @@
-This is a profile 
+<section>
+  <% if (profile.submitted === false) { %>
+  <h2>Registration Form</h2>
+  <h5>Full name</h5>
+  <input
+    type="text"
+    id="fullname"
+    value="<%= profile.fullname ? profile.fullname : '' %>"
+  />
+  <h5>Father's name</h5>
+  <input
+    type="text"
+    id="fathername"
+    value="<%= profile.fathername ? profile.fathername : '' %>"
+  />
+  <h5>Mother's name</h5>
+  <input
+    type="text"
+    id="mothername"
+    value="<%= profile.mothername ? profile.mothername : '' %>"
+  />
+  <h5>Age</h5>
+  <input type="text" id="age" value="<%= profile.age ? profile.age : '' %>" />
+  <h5>Phone Number</h5>
+  <input
+    type="text"
+    id="phoneNumber"
+    value="<%= profile.phoneNumber ? profile.phoneNumber : '' %>"
+  />
+  <div>
+    <button id="savebut">Save</button>
+    <button id="submitbut">Submit</button>
+  </div>
 
+  <% } else { %>
+  <h1>Your Profile has been submitted!</h1>
+  <h3>Name : <%= profile.fullname %></h3>
+  <h3>Father's Name : <%= profile.fathername %></h3>
+  <h3>Mother's Name : <%= profile.mothername %></h3>
+  <h3>Age : <%= profile.age %></h3>
+  <h3>Phone Number : <%= profile.phoneNumber %></h3>
+  <% } %>
+</section>
 
-<%= profile.uuid %>
+<link rel="stylesheet" href="/stylesheets/style.css" />
 
-<%= JSON.stringify(profile.toJSON()) %>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const saveButton = document.getElementById("savebut");
+    const submitButton = document.getElementById("submitbut");
+    const uuid = "<%= profile.uuid %>";
+
+    const getinputvals = () => {
+      const fullname = document.getElementById("fullname").value;
+      const fathername = document.getElementById("fathername").value;
+      const mothername = document.getElementById("mothername").value;
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      const age = document.getElementById("age").value;
+      return {
+        fullname,
+        fathername,
+        mothername,
+        age,
+        phoneNumber,
+      };
+    };
+    saveButton.addEventListener("click", () => {
+      const inputData = getinputvals();
+      console.log("Sending a post req");
+      fetch(`${uuid}/save`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(inputData),
+      });
+      console.log("POst req has been sent with the following data", inputData);
+    });
+
+    submitButton.addEventListener("click", () => {
+      const inputData = getinputvals();
+      console.log("Sending a post req for submit");
+      fetch(`${uuid}/submit`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(inputData),
+      });
+      location.reload();
+    });
+  });
+</script>

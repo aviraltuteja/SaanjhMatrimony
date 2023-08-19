@@ -16,8 +16,12 @@ const isAdminLoggedIn = (req, res, next) => {
 };
 
 /* GET users listing. */
-router.get("/", isAdminLoggedIn, function (req, res, next) {
+router.get("/", isAdminLoggedIn, async function (req, res, next) {
+  const profiles = await Profile.findAll();
+  // console.log(profiles);
+
   res.render("admin/index", {
+    profiles: profiles,
     layout: "admin/layout",
   });
 });
@@ -67,4 +71,16 @@ router.get("/newProfile", isAdminLoggedIn, async function (req, res) {
   }
 });
 
+router.get("/:uuid", isAdminLoggedIn, async function (req, res) {
+  const { uuid } = req.params;
+  // console.log(uuid);
+
+  const reqprofile = await Profile.findOne({
+    where: { uuid: uuid },
+  });
+  res.render("admin/profileadmin", {
+    layout: false,
+    profile: reqprofile,
+  });
+});
 module.exports = router;

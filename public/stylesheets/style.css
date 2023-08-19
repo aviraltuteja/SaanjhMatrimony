@@ -6,6 +6,26 @@ body {
   align-items: center;
 }
 
+.link {
+  color: blue;
+}
+.link:hover {
+  color: green;
+}
+
 a {
   color: #00b7ff;
+}
+h3 {
+  text-align: center;
+}
+
+.table-entry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div {
+  margin: 10px 0px;
 }
